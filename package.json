@@ -1,0 +1,26 @@
+{
+  "name": "wp-monday-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node-dev --respawn src/index.ts",
+    "build": "esbuild --bundle src/index.ts --outdir=dist --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/intermecaserv/wp-monday-bot.git"
+  },
+  "author": "Alin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/intermecaserv/wp-monday-bot/issues"
+  },
+  "homepage": "https://github.com/intermecaserv/wp-monday-bot#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "esbuild": "^0.14.24",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.2"
+  }
+}
