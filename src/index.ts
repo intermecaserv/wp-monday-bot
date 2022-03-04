@@ -33,7 +33,7 @@ app.listen(PORT, () => {
         });
         const wpPage = browser.pages().length > 0 ? browser.pages()[0] : (await browser.newPage());
         await wpPage.goto('https://web.whatsapp.com', {
-            referer: 'https://google.com'
+            referer: 'https://contacts.google.com'
         });
 
         const qrLocator = wpPage.locator('canvas[role=img]');
