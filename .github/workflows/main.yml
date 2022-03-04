@@ -14,8 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: checkout repo
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: install gv
         uses: gittools/actions/gitversion/setup@v0.9.7
