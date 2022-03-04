@@ -59,7 +59,7 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-  build_helm_package:
+  build_push_helm_package:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
@@ -82,5 +82,5 @@ jobs:
       - name: Helm tool installer
         uses: Azure/setup-helm@v2.0
         
-      - run: helm package chart
+      - run: helm package chart --version ${{ steps.gitversion.outputs.semVer }} --app-version ${{ steps.gitversion.outputs.semVer }} --destination helm_dist
       
