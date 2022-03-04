@@ -9,5 +9,5 @@ RUN npm run build
 FROM node:lts-alpine as runner
 WORKDIR /app
 COPY --from=builder /app/dist /app
-RUN npx playwright install chromium
-CMD node /app/dist/index.js
+RUN npx playwright install
+CMD ["node", "/app/dist/index.js"]
