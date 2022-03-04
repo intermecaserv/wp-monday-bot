@@ -82,8 +82,8 @@ jobs:
       - name: Helm tool installer
         uses: Azure/setup-helm@v2.0
         
-      - name: Helm package
-        run: helm package chart --version ${{ steps.gitversion.outputs.semVer }} --app-version ${{ steps.gitversion.outputs.semVer }}
+      #- name: Helm package
+       # run: helm package chart --version ${{ steps.gitversion.outputs.semVer }} --app-version ${{ steps.gitversion.outputs.semVer }}
       
       - name: Configure Git
         run: |
@@ -91,8 +91,6 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.1.0
-        with:
-          charts_dir: chart
+        uses: helm/chart-releaser-action@v1.3.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
