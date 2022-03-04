@@ -26,37 +26,42 @@ app.listen(PORT, () => {
 });
 
 (async () => {
-    const browser = await chromium.launchPersistentContext(USER_DATA_DIR, {
-        headless: NODE_ENV !== 'dev',
-        slowMo: SLOWNESS
-    });
-    const wpPage = browser.pages().length > 0 ? browser.pages()[0] : (await browser.newPage());
-    await wpPage.goto('https://web.whatsapp.com', {
-        referer: 'https://google.com'
-    });
-
-    const qrLocator = wpPage.locator('canvas[role=img]');
-
-    const readQrImage = async () => {
-        qrImage = await qrLocator.evaluate(x => {
-            const canvas = x as HTMLCanvasElement;
-            return canvas.toDataURL("image/png");
+    try {
+        const browser = await chromium.launchPersistentContext(USER_DATA_DIR, {
+            headless: NODE_ENV !== 'dev',
+            slowMo: SLOWNESS
         });
-        const qrLocatorTest = wpPage.locator('canvas[role=img]');
-        if (qrLocatorTest == null && readQrInterval != null) {
-            clearInterval(readQrInterval);
+        const wpPage = browser.pages().length > 0 ? browser.pages()[0] : (await browser.newPage());
+        await wpPage.goto('https://web.whatsapp.com', {
+            referer: 'https://google.com'
+        });
+
+        const qrLocator = wpPage.locator('canvas[role=img]');
+
+        const readQrImage = async () => {
+            qrImage = await qrLocator.evaluate(x => {
+                const canvas = x as HTMLCanvasElement;
+                return canvas.toDataURL("image/png");
+            });
+            const qrLocatorTest = wpPage.locator('canvas[role=img]');
+            if (qrLocatorTest == null && readQrInterval != null) {
+                clearInterval(readQrInterval);
+            }
+        };
+
+        if (qrLocator != null) {
+            await readQrImage();
+            readQrInterval = setInterval(() => {
+                (async () => {
+                    await readQrImage();
+                })();
+            }, 5000);
+
+        } else {
+
         }
-    };
-
-    if (qrLocator != null) {
-        await readQrImage();
-        readQrInterval = setInterval(() => {
-            (async () => {
-                await readQrImage();
-            })();
-        }, 5000);
-
-    } else {
-
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
     }
 })();
