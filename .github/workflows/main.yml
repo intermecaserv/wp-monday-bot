@@ -82,6 +82,5 @@ jobs:
       - name: Helm tool installer
         uses: Azure/setup-helm@v2.0
         
-      - run: helm package wp-monday-bot
-        working-directory: chart
+      - run: helm package chart
       
