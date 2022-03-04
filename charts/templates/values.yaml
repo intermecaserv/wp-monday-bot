@@ -1,2 +1,2 @@
 replicaCount: 1
-nodeEnv: dev
+nodeEnv: prod
