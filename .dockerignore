@@ -1,0 +1,9 @@
+.vscode
+.git
+dist
+data
+.github
+out
+node_modules
+.env
+.gitignore
