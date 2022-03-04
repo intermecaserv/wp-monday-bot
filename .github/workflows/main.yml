@@ -61,6 +61,7 @@ jobs:
 
   build_push_helm_package:
     runs-on: ubuntu-latest
+    needs: [docker_build_push]
     steps:
       - name: checkout repo
         uses: actions/checkout@v2
@@ -81,9 +82,6 @@ jobs:
         
       - name: Helm tool installer
         uses: Azure/setup-helm@v2.0
-        
-      #- name: Helm package
-       # run: helm package chart --version ${{ steps.gitversion.outputs.semVer }} --app-version ${{ steps.gitversion.outputs.semVer }}
       
       - name: Configure Git
         run: |
