@@ -1,0 +1,3 @@
+replicaCount: 1
+image: 'alinflorin/wp-monday-bot:latest'
+nodeEnv: dev
