@@ -14,7 +14,7 @@ spec:
     spec:
       terminationGracePeriodSeconds: 0
       containers:
-        - name: {{ .Chart.Name }}
+        - name: alinflorin/wp-monday-bot:{{ .Chart.Version }}
           image: {{ .Values.image }}
           imagePullPolicy: Always
           ports:
