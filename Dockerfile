@@ -13,6 +13,6 @@ RUN npx playwright install
 VOLUME /data
 EXPOSE 3000
 ENV USER_DATA_DIR="/data"
-ENV NODE_ENV
-ENV SLOWNESS
+ENV NODE_ENV="prod"
+
 CMD ["node", "/app/dist/index.js"]
