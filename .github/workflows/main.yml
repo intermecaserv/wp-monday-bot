@@ -5,16 +5,29 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
 
-  build:
+  build_push:
 
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: install gv
+        uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: "5.5.0"
+
+      - name: execute gv
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.7
+        with:
+          useConfigFile: true
+          configFilePath: "GitVersion.yml"
         
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -37,7 +50,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: alinflorin/wp-monday-bot:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/wp-monday-bot:latest,${{ secrets.DOCKER_USERNAME }}/wp-monday-bot:${{ steps.gitversion.outputs.semVer }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
