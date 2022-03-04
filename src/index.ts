@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
 import { chromium } from 'playwright';
 import express from 'express';
-import { NODE_ENV, PORT, SLOWNESS, USER_DATA_DIR } from './config';
+import { NODE_ENV, SLOWNESS, USER_DATA_DIR } from './config';
 
 
 config({
@@ -21,7 +21,7 @@ app.get('/', async (_, res) => {
         `);
 });
 
-app.listen(PORT, () => {
+app.listen(3000, () => {
     console.log('API listening...');
 });
 
