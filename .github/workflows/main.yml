@@ -83,7 +83,7 @@ jobs:
         uses: Azure/setup-helm@v2.0
         
       - name: Helm package
-        run: helm package chart --version ${{ steps.gitversion.outputs.semVer }} --app-version ${{ steps.gitversion.outputs.semVer }} --destination helm_dist
+        run: helm package chart --version ${{ steps.gitversion.outputs.semVer }} --app-version ${{ steps.gitversion.outputs.semVer }}
       
       - name: Configure Git
         run: |
@@ -93,6 +93,6 @@ jobs:
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.1.0
         with:
-          charts_dir: helm_dist
+          charts_dir: chart
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
