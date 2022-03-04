@@ -9,10 +9,8 @@ on:
 
 jobs:
 
-  build_push:
-
+  docker_build_push:
     runs-on: ubuntu-latest
-
     steps:
       - name: checkout repo
         uses: actions/checkout@v2
@@ -60,3 +58,25 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+  build_helm_package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: install gv
+        uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: "5.5.0"
+
+      - name: execute gv
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.7
+        with:
+          useConfigFile: true
+          configFilePath: "GitVersion.yml"
+        
+      
