@@ -42,15 +42,17 @@ app.listen(3000, () => {
     }
 
     const readQrImage = async () => {
-        qrImage = await qrLocator.evaluate(x => {
-            const canvas = x as HTMLCanvasElement;
-            return canvas.toDataURL("image/png");
-        });
         const qrLocatorTest = wpPage.locator('canvas[role=img]');
         if (qrLocatorTest == null && readQrInterval != null) {
             clearInterval(readQrInterval);
             await startBot();
+            return;
         }
+        qrImage = await qrLocator.evaluate(x => {
+            const canvas = x as HTMLCanvasElement;
+            return canvas.toDataURL("image/png");
+        });
+        
     };
 
     if (qrLocator != null) {
