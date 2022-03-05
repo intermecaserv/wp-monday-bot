@@ -21,3 +21,5 @@ spec:
           env:
             - name: NODE_ENV
               value: {{ .Values.nodeEnv}}
+            - name: GROUP_NAME
+              value: {{ .Values.groupName }}
